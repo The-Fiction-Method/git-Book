@@ -39,8 +39,9 @@ Batch is a Windows script type, and so will not work on other OSes directly.
 Also it uses some MiKTeX CLI arguments that might not be present with other LaTeX distrubtions (though I can believe the main one, setting the auxiliary folder location, does exist for the others, if under a different name).
 
 # My Process
-After creating a repository from this template, I will rename **Book.docx** and **Book.tex** files to whatever the working title is.
-Within **Book.tex**
+After creating a repository from this template, I will rename **Book.docx**, **Book.tex**, and **Book.epub** files to whatever the working title is.
+Within **Book.tex** and **Book.epub** are references to the author, copyright year, and an email address for contacting the author.
+You will want to update these to reflect the appropriate information for your book.
 
 It should be noted, **.docx** files are set to be ignored, and this is intentional.
 The renamed file will not be tracked.
