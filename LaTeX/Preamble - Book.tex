@@ -1,0 +1,229 @@
+
+\usepackage[default]{opensans}
+% \usepackage{fourier}\usepackage[T1]{fontenc}%	a serif font that looks okay to me
+
+\setlength{\parindent}{2em}
+%	adds an indent to the paragraphs
+
+\usepackage{geometry}	%	allows the margins to be set
+\geometry{	papersize={\psize}	}
+%	this is what checks for special paper size
+%	must be before margins are set, or the layout will be incorrect
+
+\geometry{
+	margin=0.5in,
+%	bindingoffset=0.3in
+}	\savegeometry{title}
+
+\geometry{
+	margin			=	0.5in,
+	bindingoffset	=	0.3in,
+	top				=	0.75in,
+	headheight		=	1.0\baselineskip,
+	headsep			=	0.5\baselineskip,
+	%footsep		=	0.5in,
+	footskip		=	0.5in,
+	bottom			=	1.0in,
+	heightrounded	=	true,
+}	\savegeometry{pages}
+
+%margin		all margines
+%inner		inner page margin
+%outer		outer page margin
+%top		top margin
+%headheight	header height within top margin
+%headsep	distance from header to text
+%footsep	distance from text to top of footer
+%footskip	distance from text to bottom of foot
+%bottom		bottom margin
+
+\usepackage{ragged2e}
+%	needed for proper centering on title and similar pages
+
+\newcommand{\paraform}{
+	\raggedright						%	left-aligned, not justified
+	\setlength{\parindent}{2em}			%	set paragraph indentation
+	\linespread{1.25}	\selectfont		%	increases line spacing for all paragraphs
+	\setlength{\parskip}{0.25\baselineskip}	%	adds a quarter the height of a line between paragraphs
+	}
+
+
+
+\usepackage[none]{hyphenat}
+%	prevents hyphenation at end of lines
+
+%makes the title and author variables accessible elsewhere
+\makeatletter
+	\let\runtitle\@title
+	\let\runauthor\@author
+\makeatother
+
+%\usepackage{graphicx}	%	powerful package for adding images/graphics
+
+
+\usepackage{indentfirst}	%	adds indent to first paragraph (something Latex does not normally do)
+\widowpenalty=-5000		%	to prevent widowed lines, last paragraph lines on next page
+\clubpenalty=50000		%	to prevent clubed or orphaned lines, first paragraph lines on previous page
+
+
+\usepackage{titletoc,tocloft}
+%	Table of Contents packages
+
+\renewcommand{\contentsname}{\hfill \bfseries Table of Contents \hfill}
+%	changes and centers the title of the Table of Contents
+
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftdotsep}{2}	%original separation is 4.5
+%	adds dots following chapter
+
+%\renewcommand{\cftdot}{\rule{1em}{0.4pt}}
+%\renewcommand{\cftdotsep}{0}	%makes it a solid line
+%	replaces dots with line
+
+\setlength\cftbeforetoctitleskip{0ex}
+\setlength\cftaftertoctitleskip{0ex}
+%	removes the vertical spacing above and below the Table of Contents header
+
+\renewcommand{\cftbeforechapskip}{0.25\baselineskip}
+%	reduces the line spacing within the TOC
+
+\setcounter{secnumdepth}{-1}
+%	removes the section number from the table of contents by setting it to start at -1 instead of 0
+%	this is needed to keep it from adding section numbers within the TOC
+
+\usepackage{titlesec}
+%	for customizing the section titles
+
+%formats how the \chapter text is supposed to look
+
+\titleformat{\chapter}[display]{\normalfont\Large\bfseries\center}{}{0.0em}{}[\stepcounter{chapter}]
+%	the \stepcounter[chapter] command at the end increments the chapter counter, so LaTeX will do the chapter numbers automatically
+\titlespacing*{\chapter}{0pt}{*-4}{*1}
+%	reduces the space ahead of the chapter name
+
+%\titleformat{command}[shape]{format}{label}{separation}{before code}[after code]
+%\titlespacing{<command>}{<left>}{<before-sep>}{<after-sep>}
+
+\usepackage{fancyhdr}
+%	Fancy Header package
+
+\pagestyle{fancyplain}
+\fancyhf{}	% remove everything
+
+\renewcommand{\headrulewidth}{0pt}	\renewcommand{\footrulewidth}{0pt}
+%	removes lines from header and footer
+
+\usepackage{emptypage}
+%	removes headers and footers on empty pages, such as those \cleardoublepage adds
+
+\makeatletter
+\fancypagestyle{chapterpage}
+{
+	\fancyhf{}
+	\fancyhf[HC]{\runtitle}	%	puts the book title above chapter numbers
+	\fancyhf[FC]{\thepage}	%	thepage gives the page number
+}
+%	makes it so the first page of a chapter gives the title, but other pages identify the chapter
+%	do need to set what runtitle is in each book file though
+
+\fancypagestyle{pages}
+{
+	\fancyhf{}
+	\fancyhf[HLE]{\textbf\leftmark}	%leftmark apparently adds the chapter
+	\fancyhf[HRO]{\textbf\runtitle}	%so on every pair of pages there is chapter and title
+	\fancyhf[FC]{\thepage}	%thepage gives the page number
+}
+%	style for other pages
+\makeatother
+
+\usepackage{imakeidx}
+%	for making and configuring an index
+
+\usepackage{xpatch}
+\xpatchcmd{\theindex}{multicols}{multicols*}{}{}
+\xpatchcmd{\endtheindex}{multicols}{multicols*}{}{}
+%	this is to make the Index columns unbalanced
+
+\usepackage{hyperref}
+%	the package for hyperlinks and setting their color, highlight, etc.
+\hypersetup{
+	pdftitle	=	\runtitle,
+	pdfauthor	=	\runauthor
+	}
+%	sets PDF metadata
+
+\hypersetup{
+	colorlinks,	%removes the box around links
+	linkcolor=black,
+	filecolor=black,
+	urlcolor=black,
+	linktoc=all	%makes the name and page numbers links
+}
+%	removes highlights from links and makes chapter and page number links in Table of Contents
+
+\makeatletter
+	\let\stdchapter\chapter
+	\renewcommand*\chapter
+	{
+	\@ifstar{\starchapter}{\@dblarg\nostarchapter}}
+	\newcommand*\starchapter[1]{%
+		\stdchapter*{#1}
+		\thispagestyle{chapterpage}
+		\pagestyle{pages}
+	}
+	\def\nostarchapter[#1]#2
+	{
+		\stdchapter[{#1}]{#2}
+		\thispagestyle{chapterpage}
+		\pagestyle{pages}
+	}
+\makeatother
+%	what actually identifies if it is the first page of a chapter or not
+%	is what causes the first page of the chapters and the rest to have different headers
+
+%	command to create the Title page
+\newcommand{\titlePage}{%
+\loadgeometry{title}	\thispagestyle{empty}	%	clears the header
+
+\begin{Center}
+\vspace*{\fill}
+	\fontsize{50pt}{55pt}\selectfont
+		\parbox{0.9\columnwidth}{\centering\runtitle}	\newline
+		\vspace{40pt}
+	\fontsize{20pt}{22pt}\selectfont
+		by\newline
+		\vspace{20pt}
+	\fontsize{30pt}{32pt}\selectfont
+		\runauthor
+\vspace*{\fill}
+\normalfont
+
+\end{Center}
+}
+
+\newcommand{\Folder}[1]{	\def\folder{#1}	}	\Folder{Chapters}
+%	Supports putting the chapter files in a lower folder. Default folder of "Chapters" is set
+
+\newcommand{\Input}[1]{	\input{"\folder/#1.ltx"}	}
+%	For times I am inputing a file other than a chapter, like a Dedication
+
+\newcommand{\Chapter}[2][]{
+	\def\name{#1}
+	\def\file{#2}	
+	
+	\ifx\name\empty
+		\chapter{Chapter \thechapter}
+	\else
+		\chapter{#1}
+%		\addcontentsline{toc}{chapter}{#1}
+	\fi
+	
+	\input{"\folder/#2.ltx"}
+}
+
+\newcommand{\Part}[1]{
+	\phantomsection
+	\addcontentsline{toc}{part}{#1}
+}
+
+\newcommand{\dinkus}{\bigskip\par\centerline{*~*~*}\medskip\par}	%	dinkus command

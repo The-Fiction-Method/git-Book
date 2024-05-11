@@ -1,0 +1,57 @@
+\documentclass[oneside,12pt]{book}		\def\psize{8.5in, 11in}
+% \documentclass[twoside,12pt]{book}	\def\psize{6in, 9in}
+
+\title{TITLE}
+\author{AUTHOR}
+
+\input{"Preamble - Book.tex"}
+\Folder{Chapters}
+
+\begin{document}
+
+\pagenumbering{Roman}
+
+%	Title page
+\titlePage
+
+\loadgeometry{pages}	%	to make sure the header is in the correct place
+
+\clearpage
+%\cleardoublepage
+%not using \cleardoublepage so the copyright is on the back of the title page
+
+%	copyright page
+\begin{Center}
+	\vspace*{\fill}
+	\fontsize{10pt}{0pt}\selectfont
+	Copyright \copyright~\the\year~AUTHOR\newline
+	\href{mailto:EMAIL@ADDRESS.com}{EMAIL@ADDRESS.com}
+\end{Center}
+
+\cleardoublepage
+
+\thispagestyle{empty}	\setcounter{page}{1}	%	removes the page number, but also sets it to 1 for the TOC
+
+\Chapter[Dedication]{Dedication}	\cleardoublepage
+
+\Chapter[Author's Note]{Author's Note}	\cleardoublepage
+
+%Table of Contents
+\fancyhf{}				%	clears the header
+\fancyhf[HC]{\runtitle}	%	puts the book title above chapter numbers
+\pdfbookmark{\contentsname}{toc}	%	adds a bookmark of the PDF TOC not the in-document list
+\tableofcontents
+
+\cleardoublepage
+
+\pagenumbering{arabic}	%	uses Arabic numbers for page numbering
+\setcounter{page}{1}	\setcounter{chapter}{1}	%	resets the page number and sets the chapter number to start at 1
+
+\paraform
+
+% \Part{Preparation}
+
+\Chapter{Chapter 01}
+\cleardoublepage
+
+\end{document}
