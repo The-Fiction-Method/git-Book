@@ -20,6 +20,7 @@ def md2LaTeX(TEXT):
 	# TEXT	=	'<p>' + TEXT.rstrip() + '</p>\n'
 	TEXT	=	re.sub('\*\*(.*?)\*\*', r'\\textbf{\1}', TEXT)
 	TEXT	=	re.sub('\*(.*?)\*', r'\\textit{\1}', TEXT)
+	TEXT	=	TEXT.replace('\...', '{\ldots}')
 	# TEXT	=	TEXT.replace('\dinkus', '<center>***</center>')
 	return(TEXT)
 
