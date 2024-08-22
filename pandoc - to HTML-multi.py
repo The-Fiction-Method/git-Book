@@ -21,6 +21,7 @@ def md2html(TEXT):
 	TEXT	=	re.sub('\*\*(.*?)\*\*', r'<b>\1</b>', TEXT)
 	TEXT	=	re.sub('\*(.*?)\*', r'<i>\1</i>', TEXT)
 	TEXT	=	TEXT.replace('\...', '&#8230;')
+	TEXT	=	TEXT.replace('...', '&#8230;')
 	TEXT	=	TEXT.replace('\dinkus', '<center>***</center>')
 	return(TEXT)
 

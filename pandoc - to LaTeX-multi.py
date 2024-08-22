@@ -6,6 +6,7 @@ outExtn	=	"ltx"
 
 #	sentences to lines, but not quotes that do not end sentences
 def sent2line(PARA):
+	PARA	=	re.sub('}" ([^a-z])', r'}"\n\1', PARA)#	for better handling of ldots
 	PARA	=	re.sub('." ([^a-z])', r'."\n\1', PARA.replace('. ', '.\n'))
 	PARA	=	re.sub('!" ([^a-z])', r'!"\n\1', PARA.replace('! ', '!\n'))
 	PARA	=	re.sub('\?" ([^a-z])', r'?"\n\1', PARA.replace('? ', '?\n'))
@@ -21,6 +22,7 @@ def md2LaTeX(TEXT):
 	TEXT	=	re.sub('\*\*(.*?)\*\*', r'\\textbf{\1}', TEXT)
 	TEXT	=	re.sub('\*(.*?)\*', r'\\textit{\1}', TEXT)
 	TEXT	=	TEXT.replace('\...', '{\ldots}')
+	TEXT	=	TEXT.replace('...', '{\ldots}')
 	# TEXT	=	TEXT.replace('\dinkus', '<center>***</center>')
 	return(TEXT)
 
