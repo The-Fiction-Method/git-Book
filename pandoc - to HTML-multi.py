@@ -23,6 +23,7 @@ def md2html(TEXT):
 	TEXT	=	TEXT.replace('\...', '&#8230;')
 	TEXT	=	TEXT.replace('...', '&#8230;')
 	TEXT	=	TEXT.replace('\dinkus', '<center>***</center>')
+	TEXT	=	TEXT.replace('\\"', '"')	#	for some reason, pandoc used \" and that broke things
 	return(TEXT)
 
 for file in sys.argv[1:]:

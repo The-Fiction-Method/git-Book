@@ -24,6 +24,7 @@ def md2LaTeX(TEXT):
 	TEXT	=	TEXT.replace('\...', '{\ldots}')
 	TEXT	=	TEXT.replace('...', '{\ldots}')
 	# TEXT	=	TEXT.replace('\dinkus', '<center>***</center>')
+	TEXT	=	TEXT.replace('\\"', '"')#	for some reason, pandoc used \" and that broke things
 	return(TEXT)
 
 for file in sys.argv[1:]:
