@@ -30,7 +30,7 @@ Here is a list of the different software involved:
 		- sys
 		- os
 		- re
-- [pandoc]{https://pandoc.org/}
+- [pandoc](https://pandoc.org/)
 
 It should be noted I use Windows and everything is configured around that.
 While the software is available on other operating systems, I cannot guarantee everything will work without some translation to other formats or features.
